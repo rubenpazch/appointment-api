@@ -11,7 +11,7 @@ describe 'Users API', type: :request do
     end
 
     it 'returns error if user not exists' do
-      get "/api/v1/users/#{100}"
+      get "/api/v1/users/100"
       expect(response).to have_http_status(:no_content)
     end
 
@@ -30,7 +30,8 @@ describe 'Users API', type: :request do
   describe 'POST /users' do
     it 'should create a new user' do
       role = Role.create(name: 'admin')
-      post '/api/v1/users',
+      expect {
+        post '/api/v1/users',
         params: {
           user: {
             email: 'test7777@test.com',
@@ -40,6 +41,8 @@ describe 'Users API', type: :request do
             role_id: role.id
           }
         }
+      }.to change { User.count }.from(0).to(1)
+      
       expect(response).to have_http_status(:created)
     end
     it 'should not create a new user with taken email' do
@@ -81,7 +84,7 @@ describe 'Users API', type: :request do
     end
   end
 
-  describe 'PATCH /users' do 
+  describe 'PATCH /users/id' do 
     it 'should update a existing user' do
       role = Role.create(name: 'admin')
       
@@ -103,5 +106,20 @@ describe 'Users API', type: :request do
         }
       expect(response).to have_http_status(:success)
     end    
+  end
+
+  describe 'DELETE /users/id' do 
+    it 'delete a user' do 
+      role = Role.create(name: 'admin')
+      
+
+      FactoryBot.create(:user, email: 'raul@gmail.com', password_digest: '1234567890', username: 'raul',
+        role_id: role.id)
+
+      user = User.first
+      
+      delete "/api/v1/users/#{user.id}"
+      expect(response).to have_http_status(:no_content)
+    end
   end
 end

@@ -1,9 +1,11 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :set_user, only: %i[update destroy]
+  before_action :if_user_exists, only: %i[show]
   def show
-    if (User.exists?(params[:id])) 
-      render json: User.find(params[:id])
+    if (@user) 
+      render json: @user, status: :ok
     else 
-      render json: 'User not exists', status: :no_content
+      head :no_content
     end    
   end
 
@@ -23,16 +25,29 @@ class Api::V1::UsersController < ApplicationController
 
   def update
     
-    if User.update(user_params)
+    if @user.update(user_params)
       render json: @user, status: :ok
     else
       render json: @user.errors, status: :unprocessable_entity
     end
   end
 
+  def destroy
+    @user.destroy!
+    head :no_content
+  end
+
   private
 
   def user_params
     params.require(:user).permit(:email, :password, :role_id, :username)
+  end
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def if_user_exists
+    @user = User.exists?(params[:id])
   end
 end
