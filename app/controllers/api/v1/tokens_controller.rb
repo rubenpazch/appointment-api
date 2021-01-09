@@ -6,13 +6,14 @@ class Api::V1::TokensController < ApplicationController
         token: JsonWebToken.encode(user_id: @user.id),
         username: @user.username
       }
-    else 
+    else
       head :unauthorized
     end
   end
 
-  private 
-  def user_params 
+  private
+
+  def user_params
     params.require(:user).permit(:username, :password)
   end
 end
