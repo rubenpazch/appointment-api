@@ -1,6 +1,8 @@
 class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: %i[update destroy]
   before_action :if_user_exists, only: %i[show]
+  before_action :check_owner, only: %i[update destroy]
+
   def show
     if @user
       render json: @user, status: :ok
@@ -48,5 +50,9 @@ class Api::V1::UsersController < ApplicationController
 
   def if_user_exists
     @user = User.exists?(params[:id])
+  end
+
+  def check_owner 
+    head :forbidden unless  @user.id == current_user&.id
   end
 end

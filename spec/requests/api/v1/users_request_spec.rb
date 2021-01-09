@@ -84,7 +84,7 @@ describe 'Users API', type: :request do
   end
 
   describe 'PATCH /users/id' do
-    it 'should update a existing user' do
+    it 'should not update a existing user without token' do
       role = Role.create(name: 'admin')
 
       FactoryBot.create(:user, email: 'raul@gmail.com', password_digest: '1234567890', username: 'raul',
@@ -102,12 +102,37 @@ describe 'Users API', type: :request do
                 role_id: role.id
               }
             }
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    it 'should update a existing user with token' do
+      role = Role.create(name: 'admin')
+
+      FactoryBot.create(:user, email: 'raul@gmail.com', password_digest: '1234567890', username: 'raul',
+                               role_id: role.id)
+
+      user = User.first
+      puts user.id
+
+      patch "/api/v1/users/#{user.id}",
+            params: {
+              user: {
+                email: 'pedro@test.com',
+                password: 'test7777',
+                password_digest: 'test7777',
+                username: 'pedro',
+                role_id: role.id
+              }
+            },
+            headers: {
+              Authorization: JsonWebToken.encode(user_id: user.id)
+            }
       expect(response).to have_http_status(:success)
     end
   end
 
   describe 'DELETE /users/id' do
-    it 'delete a user' do
+    it 'should not delete a user without token' do
       role = Role.create(name: 'admin')
 
       FactoryBot.create(:user, email: 'raul@gmail.com', password_digest: '1234567890', username: 'raul',
@@ -116,6 +141,18 @@ describe 'Users API', type: :request do
       user = User.first
 
       delete "/api/v1/users/#{user.id}"
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    it 'should delete a user with token' do
+      role = Role.create(name: 'admin')
+
+      FactoryBot.create(:user, email: 'raul@gmail.com', password_digest: '1234567890', username: 'raul',
+                               role_id: role.id)
+
+      user = User.first
+
+      delete "/api/v1/users/#{user.id}", headers: { Authorization: JsonWebToken.encode(user_id: user.id)}
       expect(response).to have_http_status(:no_content)
     end
   end
