@@ -1,4 +1,4 @@
-FactoryBot.define do 
-  factory :user do 
+FactoryBot.define do
+  factory :user do
   end
 end
