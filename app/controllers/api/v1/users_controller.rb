@@ -1,11 +1,11 @@
 class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: %i[update destroy]
-  before_action :if_user_exists, only: %i[show]
+  # before_action :if_user_exists, only: %i[show]
   before_action :check_owner, only: %i[update destroy]
 
   def show
-    if @user
-      render json: @user, status: :ok
+    if User.exists?(params[:id])
+      render json: UserSerializer.new(@user).serializable_hash, status: :ok
     else
       head :no_content
     end
@@ -19,7 +19,7 @@ class Api::V1::UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created
+      render json: UserSerializer.new(@user).serializable_hash, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Api::V1::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      render json: @user, status: :ok
+      render json: UserSerializer.new(@user).serializable_hash, status: :ok
     else
       render json: @user.errors, status: :unprocessable_entity
     end
