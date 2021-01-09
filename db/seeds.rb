@@ -5,3 +5,22 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+User.delete_all
+Role.delete_all
+
+role1 = Role.create(name: 'Admin')
+role2 = Role.create(name: 'Doctor')
+role3 = Role.create(name: 'Patient')
+
+1.times do 
+  User.create! email: Faker::Internet.email, password: '1234567890', username: Faker::Internet.username, role_id: role1.id
+end
+
+5.times do 
+  User.create! email: Faker::Internet.email, password: '1234567890', username: Faker::Internet.username, role_id: role2.id
+end
+
+5.times do 
+  User.create! email: Faker::Internet.email, password: '1234567890', username: Faker::Internet.username, role_id: role3.id
+end
