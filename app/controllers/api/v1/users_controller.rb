@@ -12,7 +12,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def index
-    render json: User.all
+    render json: User.all, status: :ok
   end
 
   def create
@@ -52,7 +52,7 @@ class Api::V1::UsersController < ApplicationController
     @user = User.exists?(params[:id])
   end
 
-  def check_owner 
-    head :forbidden unless  @user.id == current_user&.id
+  def check_owner
+    head :forbidden unless @user.id == current_user&.id
   end
 end

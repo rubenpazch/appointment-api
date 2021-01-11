@@ -18,6 +18,7 @@ RSpec.describe 'Api::V1::Tokens', type: :request do
                password: '1234567890'
              }
            }
+
       expect(response).to have_http_status(:success)
     end
   end
