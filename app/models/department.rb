@@ -1,4 +1,4 @@
 class Department < ApplicationRecord
-  has_many :users
-  has_many :users, through: :User
+  has_many :attends
+  has_many :users, through: :attends
 end
