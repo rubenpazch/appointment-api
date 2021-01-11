@@ -10,10 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_08_193110) do
+ActiveRecord::Schema.define(version: 2021_01_11_172208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "departments", force: :cascade do |t|
+    t.string "name"
+    t.string "contactNumber"
+    t.string "string"
+    t.string "location"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "doctor_calendars", force: :cascade do |t|
+    t.date "startDate"
+    t.date "endDate"
+    t.time "startTime"
+    t.time "endTime"
+    t.integer "totalHours"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+  end
+
+  create_table "people", force: :cascade do |t|
+    t.string "fistName"
+    t.string "lastName"
+    t.string "documentId"
+    t.string "phone"
+    t.string "historyNumber"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
@@ -28,6 +58,7 @@ ActiveRecord::Schema.define(version: 2021_01_08_193110) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "role_id", null: false
+    t.integer "person_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
     t.index ["username"], name: "index_users_on_username", unique: true
