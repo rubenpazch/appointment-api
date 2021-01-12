@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_12_050426) do
+ActiveRecord::Schema.define(version: 2021_01_12_054623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "appointments", force: :cascade do |t|
+    t.date "appointmentDate"
+    t.time "startTime"
+    t.time "endTime"
+    t.boolean "status"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_appointments_on_user_id"
+  end
 
   create_table "departments", force: :cascade do |t|
     t.string "name"
@@ -21,6 +32,8 @@ ActiveRecord::Schema.define(version: 2021_01_12_050426) do
     t.string "location"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_departments_on_user_id"
   end
 
   create_table "doctor_calendars", force: :cascade do |t|
@@ -50,6 +63,17 @@ ActiveRecord::Schema.define(version: 2021_01_12_050426) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "shifts", force: :cascade do |t|
+    t.integer "totalShift"
+    t.integer "interval"
+    t.date "startDate"
+    t.date "endDate"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_shifts_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
@@ -63,5 +87,8 @@ ActiveRecord::Schema.define(version: 2021_01_12_050426) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "appointments", "users"
+  add_foreign_key "departments", "users"
+  add_foreign_key "shifts", "users"
   add_foreign_key "users", "roles"
 end
