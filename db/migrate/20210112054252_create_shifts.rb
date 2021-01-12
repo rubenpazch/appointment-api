@@ -5,7 +5,7 @@ class CreateShifts < ActiveRecord::Migration[6.1]
       t.integer :interval
       t.date :startDate
       t.date :endDate
-      t.references :user, null: false, foreign_key: true
+      t.references :department, null: false, foreign_key: true
 
       t.timestamps
     end
