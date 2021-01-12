@@ -12,7 +12,7 @@ Role.delete_all
 Person.delete_all
 DoctorCalendar.delete_all
 Department.delete_all
-Shift.delete_all
+# Shift.delete_all
 
 role1 = Role.create(name: 'Admin')
 role2 = Role.create(name: 'Doctor')
@@ -24,9 +24,9 @@ department3 = Department.create! name: 'Cancer Care', contactNumber: Faker::Phon
 department4 = Department.create! name: 'Urology', contactNumber: Faker::PhoneNumber.cell_phone_in_e164, location: Faker::Address.street_address 
 
 
-shift1 = Shift.create! name: 'Morning', duration: 8, startTime: '2021-09-25 8:00AM', endTime: '2021-09-25 16:00PM', startDate: '2021-09-25 ', endDate: '2021-09-25 '
-shift2 = Shift.create! name: 'Afternoon', duration: 8, startTime: '2021-09-25 16:00PM', endTime: '2021-09-25 24:00PM', startDate: '2021-09-25 ', endDate: '2021-09-25 '
-shift3 = Shift.create! name: 'Emergency', duration: 8, startTime: '2021-09-25 12:00AM', endTime: '2021-09-25 8:00AM', startDate: '2021-09-25 ', endDate: '2021-09-25 '
+# shift1 = Shift.create! shiftName: 'Morning', duration: 8, startTime: '2021-09-25 8:00AM', endTime: '2021-09-25 16:00PM', startDate: '2021-09-25 ', endDate: '2021-09-25 '
+# shift2 = Shift.create! shiftName: 'Afternoon', duration: 8, startTime: '2021-09-25 16:00PM', endTime: '2021-09-25 24:00PM', startDate: '2021-09-25 ', endDate: '2021-09-25 '
+# shift3 = Shift.create! shiftName: 'Emergency', duration: 8, startTime: '2021-09-25 12:00AM', endTime: '2021-09-25 8:00AM', startDate: '2021-09-25 ', endDate: '2021-09-25 '
 
 
 1.times do 
@@ -46,7 +46,11 @@ end
   DoctorCalendar.create! startDate: '2021-09-25', endDate: '2021-09-25', startTime: '2021-09-23 11:15 AM', endTime: '2021-09-23 11:30 AM', totalHours: 5, user_id: userDoctor.id
   DoctorCalendar.create! startDate: '2021-09-25', endDate: '2021-09-25', startTime: '2021-09-23 11:30 AM', endTime: '2021-09-23 11:45 AM', totalHours: 5, user_id: userDoctor.id
   
-  Attend.create! totalShift: 10, department_id: department1.id, user_id: userDoctor.id, shifts_id: shift1.id
+  Attend.create! totalShift: 10, department_id: department1.id, user_id: userDoctor.id, shiftName: 'Morning', startTime: '2021-09-25 8:00AM', endTime: '2021-09-25 8:15AM', startDate: '2021-09-25 ', endDate: '2021-09-25 '
+  Attend.create! totalShift: 10, department_id: department1.id, user_id: userDoctor.id, shiftName: 'Morning', startTime: '2021-09-25 8:15AM', endTime: '2021-09-25 8:30AM', startDate: '2021-09-25 ', endDate: '2021-09-25 '
+  Attend.create! totalShift: 10, department_id: department1.id, user_id: userDoctor.id, shiftName: 'Morning', startTime: '2021-09-25 8:30AM', endTime: '2021-09-25 8:45AM', startDate: '2021-09-25 ', endDate: '2021-09-25 '
+  Attend.create! totalShift: 10, department_id: department1.id, user_id: userDoctor.id, shiftName: 'Morning', startTime: '2021-09-25 8:45AM', endTime: '2021-09-25 9:00AM', startDate: '2021-09-25 ', endDate: '2021-09-25 '
+  Attend.create! totalShift: 10, department_id: department1.id, user_id: userDoctor.id, shiftName: 'Morning', startTime: '2021-09-25 9:00AM', endTime: '2021-09-25 9:15AM', startDate: '2021-09-25 ', endDate: '2021-09-25 '
 end
 
 

@@ -9,4 +9,14 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
   validates :username, uniqueness: true
   has_secure_password
+
+  def department 
+    departments.group('id')
+  end
+
+  def timeable_doctor( doctorId )
+    doctor_calendar.select(:id, :startDate, :endDate, :startTime, :endTime).where(user_id: doctorId ) 
+  end
+
+
 end
