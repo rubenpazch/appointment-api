@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Appointment.delete_all
 Shift.delete_all
 User.delete_all
 Role.delete_all
@@ -123,7 +124,18 @@ end
   DoctorCalendar.create! startDate: '2021-02-17', endDate: '2021-02-17', startTime: '2021-02-17 16:00 PM', endTime: '2021-02-17 12:00 AM', totalHours: 8, user_id: userDoctor4.id
 end
 
+DoctorUsers = User.where(:role_id => role2.id).all
+maximumUserId = DoctorUsers.maximum(:id)
 
+# Create Admin Data
+4.times do 
+  personPatient1 = Person.create! fistName: Faker::Name.first_name, lastName: Faker::Name.last_name, documentId: Faker::IDNumber.chilean_id , phone: Faker::PhoneNumber.cell_phone_in_e164, historyNumber: Faker::IDNumber.valid 
+  userpatient1 = User.create! email: Faker::Internet.email, password: '1234567890', username: Faker::Internet.username, role_id: role3.id, person_id: personPatient1.id, department_id: department5.id
+  Appointment.create! appointmentDate: '2021-02-17', startTime: '2021-02-17 16:00 PM', endTime: '2021-02-17 12:00 AM', status: true, user_id: userpatient1.id, doctor_id: maximumUserId
+  maximumUserId = maximumUserId -1
+end  
+
+# Appointment.create! appointmentDate: '2021-02-17', startTime: '2021-02-17 16:00 PM', endTime: '2021-02-17 12:00 AM', status: true, user_id: 
 
 
 
