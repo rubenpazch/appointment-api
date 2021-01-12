@@ -45,8 +45,8 @@ end
   DoctorCalendar.create! startDate: '2021-09-25', endDate: '2021-09-25', startTime: '2021-09-23 11:00 AM', endTime: '2021-09-23 11:15 AM', totalHours: 5, user_id: userDoctor.id
   DoctorCalendar.create! startDate: '2021-09-25', endDate: '2021-09-25', startTime: '2021-09-23 11:15 AM', endTime: '2021-09-23 11:30 AM', totalHours: 5, user_id: userDoctor.id
   DoctorCalendar.create! startDate: '2021-09-25', endDate: '2021-09-25', startTime: '2021-09-23 11:30 AM', endTime: '2021-09-23 11:45 AM', totalHours: 5, user_id: userDoctor.id
-
-  Attend.create! totalShift: 10, department_id: department1.id, user_id: userDoctor.id, shift_id: shift1.id
+  
+  Attend.create! totalShift: 10, department_id: department1.id, user_id: userDoctor.id, shifts_id: shift1.id
 end
 
 
@@ -55,9 +55,8 @@ end
   userPatient = User.create! email: Faker::Internet.email, password: '1234567890', username: Faker::Internet.username, role_id: role3.id, person_id: person.id  
 end
 
-DoctorUsers = User.where(:role_id => role2.id).all
-maximumUserId = DoctorUsers.maximum(:id)
-
+# DoctorUsers = User.where(:role_id => role2.id).all
+# maximumUserId = DoctorUsers.maximum(:id)
 # Attend.create! totalShift: 10, department_id: department1.id, user_id: maximumUserId, shift_id: shift1.id
 # Attend.create! totalShift: 10, department_id: department1.id, user_id: maximumUserId-1, shift_id: shift2.id
 # Attend.create! totalShift: 10, department_id: department1.id, user_id: maximumUserId-2, shift_id: shift3.id
