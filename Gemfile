@@ -52,4 +52,4 @@ gem 'jwt', '~> 2.2'
 
 gem 'fast_jsonapi', '~> 1.5'
 
-gem 'faker'
+gem 'faker', '~> 2.12'
