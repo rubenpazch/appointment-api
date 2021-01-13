@@ -24,7 +24,7 @@ class User < ApplicationRecord
   
   # rubocop:disable Lint/Syntax
   def timeable_doctor(start_date, end_date)
-    doctor_calendar.where(startDate: => (start_date)..end_date)
+    doctor_calendar.where(:startDate => (start_date)..end_date)
   end
   # rubocop:enable Lint/Syntax
 end

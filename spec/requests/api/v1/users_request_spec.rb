@@ -25,6 +25,7 @@ describe 'Users API', type: :request do
       user = User.first
 
       get "/api/v1/users/#{user.id}"
+
       expect(response).to have_http_status(:success)
     end
     #
