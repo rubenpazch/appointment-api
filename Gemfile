@@ -41,7 +41,6 @@ end
 
 group :production do
   gem 'pg', '~> 1.1'
-  gem 'faker', '~> 2.15'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -52,3 +51,5 @@ gem 'bcrypt', '~> 3.1'
 gem 'jwt', '~> 2.2'
 
 gem 'fast_jsonapi', '~> 1.5'
+
+gem 'faker', '~> 2.15'
