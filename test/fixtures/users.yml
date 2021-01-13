@@ -5,9 +5,14 @@ one:
   password_digest: MyString
   username: MyString1
   role: one
+  person: one
+  department: one
 
 two:
   email: MyString2@gmail.com
   password_digest: MyString
   username: MyString2
   role: one
+  person: two
+  department: two
+

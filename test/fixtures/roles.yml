@@ -2,6 +2,7 @@
 
 one:
   name: Role1
-
+  code: 'A'
 two:
   name: Role2
+  code: 'B'
