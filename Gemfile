@@ -30,8 +30,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 4.0.1'
-  gem 'rubocop', '~> 1.8'
-  gem 'faker', '~> 2.15'
+  gem 'rubocop', '~> 1.8'  
 end
 
 group :development do
@@ -42,6 +41,7 @@ end
 
 group :production do 
   gem 'pg', '~> 1.1'
+  gem 'faker', '~> 2.15'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
