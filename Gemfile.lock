@@ -74,8 +74,8 @@ GEM
     factory_bot_rails (6.1.0)
       factory_bot (~> 6.1.0)
       railties (>= 5.0.0)
-    faker (1.9.1)
-      i18n (>= 0.7)
+    faker (2.15.1)
+      i18n (>= 1.6, < 2)
     fast_jsonapi (1.5)
       activesupport (>= 4.2)
     ffi (1.14.2)
@@ -201,7 +201,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   factory_bot_rails
-  faker (<= 2.12)
+  faker (~> 2.15)
   fast_jsonapi (~> 1.5)
   jwt (~> 2.2)
   listen (~> 3.3)
@@ -212,6 +212,7 @@ DEPENDENCIES
   rspec-rails (~> 4.0.1)
   rubocop (~> 1.8)
   spring
+  tzinfo-data
 
 RUBY VERSION
    ruby 2.7.0p0
