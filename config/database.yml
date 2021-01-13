@@ -82,5 +82,6 @@ test:
 production:
   <<: *default
   database: appointment_api_production
+  adapter: 'postgresql'
   username: appointment_api
   password: <%= ENV['APPOINTMENT_API_DATABASE_PASSWORD'] %>

@@ -29,3 +29,5 @@
 node_modules
 Gemfile.lock
 commands.txt
+vendor/bundle
+.env
