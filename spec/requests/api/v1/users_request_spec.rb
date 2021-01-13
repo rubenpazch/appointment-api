@@ -26,6 +26,33 @@ describe 'Users API', type: :request do
 
       get "/api/v1/users/#{user.id}"
 
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    it 'returns user by id' do
+      role = Role.create(name: 'patient')
+
+      person = Person.create! fistName: Faker::Name.first_name,
+                              lastName: Faker::Name.last_name,
+                              documentId: Faker::IDNumber.chilean_id,
+                              phone: Faker::PhoneNumber.cell_phone_in_e164,
+                              historyNumber: Faker::IDNumber.valid
+
+      department = Department.create! name: 'Surgery',
+                                      contactNumber: Faker::PhoneNumber.cell_phone_in_e164,
+                                      location: Faker::Address.street_address
+
+      user = User.create(email: 'test@test.com',
+                  password_digest: 'test',
+                  username: 'testusename',
+                  role_id: role.id,
+                  department_id: department.id,
+                  person_id: person.id)
+
+      get "/api/v1/users/#{user.id}", headers: {
+                                         Authorization: JsonWebToken.encode(user_id: user.id)
+                                      }
+
       expect(response).to have_http_status(:success)
     end
     #

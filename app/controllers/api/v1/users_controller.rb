@@ -1,10 +1,11 @@
 class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: %i[update destroy]
   # before_action :if_user_exists, only: %i[show]
-  before_action :check_owner, only: %i[update destroy]
+  before_action :check_owner, only: %i[update destroy show]
 
   def show
     if User.exists?(params[:id])
+      @user = User.find(params[:id])
       render json: UserSerializer.new(@user).serializable_hash, status: :ok
     else
       head :no_content
@@ -53,6 +54,10 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def check_owner
-    head :forbidden unless @user.id == current_user&.id
+    if current_user.nil? 
+      head :forbidden 
+    else 
+      head :forbidden unless params[:id].to_i == current_user&.id.to_i
+    end
   end
 end
